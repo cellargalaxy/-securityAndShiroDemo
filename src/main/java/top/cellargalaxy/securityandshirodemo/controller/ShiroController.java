@@ -3,9 +3,10 @@ package top.cellargalaxy.securityandshirodemo.controller;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import top.cellargalaxy.securityandshirodemo.model.SecurityUser;
+import top.cellargalaxy.securityandshirodemo.service.SecurityService;
 
 /**
  * @author cellargalaxy
@@ -14,6 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/shiro")
 public class ShiroController {
+	@Autowired
+	private SecurityService securityService;
+
+	@PostMapping("/login")
+	public String login(@RequestParam("username") String username,
+	                    @RequestParam("password") String password) {
+		SecurityUser securityUser = securityService.checkSecurityUser(username, password);
+		if (securityUser != null) {
+			return securityService.createToken(securityUser);
+		} else {
+			return "账号或密码错误";
+		}
+	}
 
 	//公开页面，需要在WebSecurityConfig里配置
 	@GetMapping("/")

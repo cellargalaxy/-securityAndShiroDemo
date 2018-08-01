@@ -6,7 +6,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 import top.cellargalaxy.securityandshirodemo.model.SecurityUser;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author cellargalaxy
@@ -17,6 +20,16 @@ public class SecurityServiceImpl implements SecurityService {
 	private final String secret = "secret";
 	public static final int EXPIRATION_TIME = 1000 * 60 * 60 * 6;
 	public static final String AUTHORITIE_KEY = "authorities";
+
+	@Override
+	public SecurityUser checkSecurityUser(String username, String password) {
+		SecurityUser securityUser = getSecurityUser(username);
+		if (securityUser != null && securityUser.getPassword().equals(password)) {
+			return securityUser;
+		} else {
+			return null;
+		}
+	}
 
 	@Override
 	public SecurityUser getSecurityUser(String username) {
@@ -30,8 +43,12 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public String login(String username) {
-		SecurityUser securityUser = getSecurityUser(username);
+	public String createToken(String username) {
+		return createToken(getSecurityUser(username));
+	}
+
+	@Override
+	public String createToken(SecurityUser securityUser) {
 		if (securityUser == null) {
 			return null;
 		}
@@ -49,7 +66,7 @@ public class SecurityServiceImpl implements SecurityService {
 				//保存权限/角色
 				.claim(AUTHORITIE_KEY, stringBuilder.toString())
 				//用户名写入标题
-				.setSubject(username)
+				.setSubject(securityUser.getUsername())
 				//有效期设置
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				//签名设置

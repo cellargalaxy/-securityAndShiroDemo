@@ -51,7 +51,7 @@
 //	@Override
 //	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 //		String username = request.getParameter(USERNAME_KEY);
-//		String token = securityService.login(username);
+//		String token = securityService.createToken(username);
 //
 //		System.out.println("登录成功,username: " + username + ",token: " + token);
 //

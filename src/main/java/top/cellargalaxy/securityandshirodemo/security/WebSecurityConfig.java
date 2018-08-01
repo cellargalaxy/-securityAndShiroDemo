@@ -42,7 +42,7 @@
 //				//允许对于网站静态资源的无授权访问
 //				.antMatchers(
 //						HttpMethod.GET,
-//						"/security",
+//						"/security/",
 //						"/*.html",
 //						"/favicon.ico",
 //						"/**/*.html",
@@ -57,7 +57,7 @@
 //
 //				//登录
 //				.addFilterBefore(
-//						new LoginFilter("/login", authenticationManager(), securityService),
+//						new LoginFilter("/createToken", authenticationManager(), securityService),
 //						UsernamePasswordAuthenticationFilter.class)
 //
 //				//检验token

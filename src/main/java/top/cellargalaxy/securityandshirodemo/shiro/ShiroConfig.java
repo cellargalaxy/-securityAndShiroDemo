@@ -23,7 +23,7 @@ import java.util.Map;
  * @author cellargalaxy
  * @time 2018/8/1
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
 	@Bean
@@ -31,7 +31,7 @@ public class ShiroConfig {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		//必须设置SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		//设置未登录时跳转的url。如果不设置值，默认会自动寻找Web工程根目录下的"/login.jsp"页面 或 "/login" 映射
+		//设置未登录时跳转的url。如果不设置值，默认会自动寻找Web工程根目录下的"/createToken.jsp"页面 或 "/createToken" 映射
 		shiroFilterFactoryBean.setLoginUrl("/notLogin");
 		//设置无权限时跳转的url
 		shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
@@ -43,8 +43,7 @@ public class ShiroConfig {
 
 		//设置拦截器，应该要用LinkedHashMap，需要按顺序
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-		filterChainDefinitionMap.put("/shiro", "anon");
-		filterChainDefinitionMap.put("/login", "anon");
+//		filterChainDefinitionMap.put("/shiro", "anon");
 		//其余一律拦截
 		//必须放在所有权限设置的最后，不然会导致所有url都被拦截
 		filterChainDefinitionMap.put("/**", "jwt");
@@ -80,7 +79,6 @@ public class ShiroConfig {
 	@Bean
 	public SecurityManager securityManager(Realm realm) {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		// 使用自己的realm
 		securityManager.setRealm(realm);
 		//关闭shiro自带的session，详情见文档
 		//http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29

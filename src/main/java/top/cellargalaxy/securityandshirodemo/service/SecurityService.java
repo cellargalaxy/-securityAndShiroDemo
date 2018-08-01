@@ -8,9 +8,18 @@ import top.cellargalaxy.securityandshirodemo.model.SecurityUser;
  */
 public interface SecurityService {
 	/**
+	 * 验证账号密码是否正确
+	 *
+	 * @param username
+	 * @param password
+	 * @return 账号密码正确就返回SecurityUser对象，否则返回null
+	 */
+	SecurityUser checkSecurityUser(String username,String password);
+
+	/**
 	 * 查询账号
 	 *
-	 * @param username 账号
+	 * @param username
 	 * @return 有则返之，无则返null
 	 */
 	SecurityUser getSecurityUser(String username);
@@ -21,7 +30,15 @@ public interface SecurityService {
 	 * @param username 账号
 	 * @return 账号的token
 	 */
-	String login(String username);
+	String createToken(String username);
+
+	/**
+	 * 制作该账号的token
+	 *
+	 * @param securityUser 账号
+	 * @return 账号的token
+	 */
+	String createToken(SecurityUser securityUser);
 
 	/**
 	 * 检查token是否合法
