@@ -23,6 +23,7 @@ import java.util.Map;
  * @author cellargalaxy
  * @time 2018/8/1
  */
+//将Shiro的配置类的@Configuration注解注释掉，Shiro就不会生效，但spring security仍然会
 //@Configuration
 public class ShiroConfig {
 

@@ -25,10 +25,10 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-security</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--不能使用shiro的starter依赖，spring的bean依赖会报错，不知道什么bug-->
         <!--但是同样的代码，用shiro-spring却什么问题都没有-->
         <!--<dependency>-->
